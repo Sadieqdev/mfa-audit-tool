@@ -1,0 +1,2 @@
+[console_scripts]
+mfa-audit = mfa_audit.cli:main

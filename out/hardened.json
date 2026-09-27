@@ -2,8 +2,8 @@
   "target": "http://127.0.0.1:8081",
   "resilience_score": 85.0,
   "rating": "Good",
-  "scan_started": "2026-09-20T19:08:00.837506+00:00",
-  "scan_finished": "2026-09-20T19:08:01.436983+00:00",
+  "scan_started": "2026-09-27T23:22:13.369125+00:00",
+  "scan_finished": "2026-09-27T23:22:13.446939+00:00",
   "severity_breakdown": {
     "Critical": 0,
     "High": 1,
@@ -17,7 +17,7 @@
       "title": "No observable rate limiting on authentication endpoint",
       "severity": "High",
       "description": "The authentication endpoint did not throttle a burst of requests, making the system susceptible to MFA fatigue (prompt bombing) and OTP brute-force attacks.",
-      "evidence": "12 rapid requests to http://127.0.0.1:8081/login; statuses={200: 12}; elapsed=0.13s",
+      "evidence": "12 rapid requests to http://127.0.0.1:8081; statuses={0: 12}; elapsed=0.02s",
       "remediation": "Implement per-account and per-IP rate limits on all MFA challenge endpoints (e.g., 3\u20135 attempts/min), enable number matching, and lock the account after repeated denials.",
       "nist_ref": "NIST SP 800-63B \u00a75.2.2",
       "owasp_ref": "OWASP A07:2021",
@@ -27,82 +27,8 @@
   "endpoints": [
     {
       "url": "http://127.0.0.1:8081",
-      "status": 200,
-      "auth_type": "form",
-      "mfa_indicators": [
-        "fido2"
-      ]
-    },
-    {
-      "url": "http://127.0.0.1:8081/login",
-      "status": 200,
-      "auth_type": "form",
-      "mfa_indicators": [
-        "fido2"
-      ]
-    },
-    {
-      "url": "http://127.0.0.1:8081/signin",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/auth",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/sso",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/oauth2/authorize",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/mfa",
-      "status": 200,
-      "auth_type": "form",
-      "mfa_indicators": [
-        "totp",
-        "push",
-        "fido2"
-      ]
-    },
-    {
-      "url": "http://127.0.0.1:8081/2fa",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/verify",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/challenge",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/authenticate",
-      "status": 404,
-      "auth_type": "form",
-      "mfa_indicators": []
-    },
-    {
-      "url": "http://127.0.0.1:8081/.well-known/openid-configuration",
-      "status": 404,
-      "auth_type": "form",
+      "status": null,
+      "auth_type": "unknown",
       "mfa_indicators": []
     }
   ]

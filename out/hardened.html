@@ -23,8 +23,8 @@
 <body>
   <h1>MFA Security Assessment Report</h1>
   <p><strong>Target:</strong> http://127.0.0.1:8081</p>
-  <p><strong>Scan started:</strong> 2026-09-20 19:08:00.837506+00:00</p>
-  <p><strong>Scan finished:</strong> 2026-09-20 19:08:01.436983+00:00</p>
+  <p><strong>Scan started:</strong> 2026-09-27 23:22:13.369125+00:00</p>
+  <p><strong>Scan finished:</strong> 2026-09-27 23:22:13.446939+00:00</p>
 
   <p class="score">MFA Resilience Score: 85 / 100</p>
   <p class="rating">Rating: Good</p>
@@ -44,7 +44,7 @@
         <td>ATT-001</td>
         <td class="sev High">High</td>
         <td>No observable rate limiting on authentication endpoint<br><small>The authentication endpoint did not throttle a burst of requests, making the system susceptible to MFA fatigue (prompt bombing) and OTP brute-force attacks.</small></td>
-        <td><code>12 rapid requests to http://127.0.0.1:8081/login; statuses={200: 12}; elapsed=0.13s</code></td>
+        <td><code>12 rapid requests to http://127.0.0.1:8081; statuses={0: 12}; elapsed=0.02s</code></td>
         <td>Implement per-account and per-IP rate limits on all MFA challenge endpoints (e.g., 3–5 attempts/min), enable number matching, and lock the account after repeated denials.</td>
         <td>NIST SP 800-63B §5.2.2</td>
         <td>OWASP A07:2021</td>
@@ -54,92 +54,15 @@
     </tbody>
   </table>
 
-  <h2>Discovered Endpoints (12)</h2>
+  <h2>Discovered Endpoints (1)</h2>
   <table>
     <thead><tr><th>URL</th><th>Status</th><th>Auth Type</th><th>MFA Indicators</th></tr></thead>
     <tbody>
     
       <tr>
         <td>http://127.0.0.1:8081</td>
-        <td>200</td>
-        <td>form</td>
-        <td>fido2</td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/login</td>
-        <td>200</td>
-        <td>form</td>
-        <td>fido2</td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/signin</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/auth</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/sso</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/oauth2/authorize</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/mfa</td>
-        <td>200</td>
-        <td>form</td>
-        <td>totp, push, fido2</td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/2fa</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/verify</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/challenge</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/authenticate</td>
-        <td>404</td>
-        <td>form</td>
-        <td></td>
-      </tr>
-    
-      <tr>
-        <td>http://127.0.0.1:8081/.well-known/openid-configuration</td>
-        <td>404</td>
-        <td>form</td>
+        <td>None</td>
+        <td>unknown</td>
         <td></td>
       </tr>
     
