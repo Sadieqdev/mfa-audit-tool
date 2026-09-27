@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MFA Security Assessment Report</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; color: #1c1c1c; }
+  h1 { margin-bottom: .2rem; }
+  .score { font-size: 2.2rem; font-weight: 700; }
+  .rating { color: #555; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1.5rem; }
+  th, td { border: 1px solid #ddd; padding: .55rem .7rem; text-align: left;
+           vertical-align: top; font-size: .92rem; }
+  th { background: #f4f4f4; }
+  .sev { font-weight: 700; }
+  .Critical { color: #b00020; }
+  .High     { color: #d84315; }
+  .Medium   { color: #b58900; }
+  .Low      { color: #0288d1; }
+  .Info     { color: #555; }
+</style>
+</head>
+<body>
+  <h1>MFA Security Assessment Report</h1>
+  <p><strong>Target:</strong> {{ r.target }}</p>
+  <p><strong>Scan started:</strong> {{ r.scan_started }}</p>
+  <p><strong>Scan finished:</strong> {{ r.scan_finished }}</p>
+
+  <p class="score">MFA Resilience Score: {{ '%.0f' % r.resilience_score }} / 100</p>
+  <p class="rating">Rating: {{ r.rating }}</p>
+
+  <h2>Findings ({{ findings|length }})</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Severity</th><th>Title</th>
+        <th>Evidence</th><th>Remediation</th>
+        <th>NIST</th><th>OWASP</th><th>CWE</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for f in findings %}
+      <tr>
+        <td>{{ f.check_id }}</td>
+        <td class="sev {{ f.severity }}">{{ f.severity }}</td>
+        <td>{{ f.title }}<br><small>{{ f.description }}</small></td>
+        <td><code>{{ f.evidence }}</code></td>
+        <td>{{ f.remediation }}</td>
+        <td>{{ f.nist_ref }}</td>
+        <td>{{ f.owasp_ref }}</td>
+        <td>{{ f.cwe_ref }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Discovered Endpoints ({{ r.endpoints|length }})</h2>
+  <table>
+    <thead><tr><th>URL</th><th>Status</th><th>Auth Type</th><th>MFA Indicators</th></tr></thead>
+    <tbody>
+    {% for e in r.endpoints %}
+      <tr>
+        <td>{{ e.url }}</td>
+        <td>{{ e.status_code }}</td>
+        <td>{{ e.auth_type }}</td>
+        <td>{{ e.mfa_indicators|join(', ') }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

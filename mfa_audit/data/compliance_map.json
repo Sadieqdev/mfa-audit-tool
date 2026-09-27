@@ -1,0 +1,26 @@
+{
+  "mappings": {
+    "CFG-001": { "nist": "NIST SP 800-63B §5.1.1", "owasp": "OWASP A02:2021" },
+    "CFG-002": { "nist": "NIST SP 800-63B §5.1.1", "owasp": "OWASP A02:2021" },
+    "CFG-003": { "owasp": "OWASP A05:2021" },
+    "CFG-004": { "nist": "NIST SP 800-63B §5.1.2", "owasp": "OWASP A07:2021" },
+    "CFG-005": { "nist": "NIST SP 800-63B §5.1.1" },
+    "SES-001": {
+      "nist": "NIST SP 800-63B §7.1",
+      "owasp": "OWASP A07:2021",
+      "cwe": "CWE-1004"
+    },
+    "SES-002": {
+      "nist": "NIST SP 800-63B §7.1",
+      "owasp": "OWASP A07:2021",
+      "cwe": "CWE-330"
+    },
+    "ATT-001": {
+      "nist": "NIST SP 800-63B §5.2.2",
+      "owasp": "OWASP A07:2021",
+      "cwe": "CWE-307"
+    },
+    "ATT-002": { "nist": "NIST SP 800-63B §5.2.10", "owasp": "OWASP A07:2021" },
+    "ATT-003": { "nist": "NIST SP 800-63B §5.1.7", "owasp": "OWASP A07:2021" }
+  }
+}

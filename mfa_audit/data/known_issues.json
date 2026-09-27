@@ -1,0 +1,32 @@
+{
+  "known_issues": [
+    {
+      "id": "KI-001",
+      "title": "Legacy protocols bypass MFA",
+      "patterns": ["basic", "ntlm", "imap", "pop3", "smtp"],
+      "severity": "High",
+      "nist": "NIST SP 800-63B §5.1.2"
+    },
+    {
+      "id": "KI-002",
+      "title": "SMS/voice OTP is not phishing-resistant",
+      "patterns": ["sms", "voice"],
+      "severity": "Medium",
+      "nist": "NIST SP 800-63B §5.2.10"
+    },
+    {
+      "id": "KI-003",
+      "title": "Push fatigue (prompt bombing) absent rate limiting",
+      "patterns": ["push", "approve"],
+      "severity": "High",
+      "mitre": "T1621"
+    },
+    {
+      "id": "KI-004",
+      "title": "Low-entropy session token",
+      "patterns": ["session", "cookie"],
+      "severity": "High",
+      "cwe": "CWE-330"
+    }
+  ]
+}

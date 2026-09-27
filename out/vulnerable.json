@@ -1,0 +1,165 @@
+{
+  "target": "http://127.0.0.1:8080",
+  "resilience_score": 44.0,
+  "rating": "Poor",
+  "scan_started": "2026-09-20T19:06:37.046326+00:00",
+  "scan_finished": "2026-09-20T19:06:37.749667+00:00",
+  "severity_breakdown": {
+    "Critical": 0,
+    "High": 3,
+    "Medium": 2,
+    "Low": 1,
+    "Info": 0
+  },
+  "findings": [
+    {
+      "check_id": "CFG-003",
+      "title": "Missing browser security headers",
+      "severity": "Low",
+      "description": "Authentication pages lack hardening headers, weakening defense-in-depth against token theft and UI-redress attacks.",
+      "evidence": "Missing: Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy",
+      "remediation": "Add the missing headers at the web server or edge.",
+      "nist_ref": "",
+      "owasp_ref": "OWASP A05:2021 Security Misconfiguration",
+      "cwe_ref": ""
+    },
+    {
+      "check_id": "SES-001",
+      "title": "Session cookie 'sessionid' missing flags",
+      "severity": "High",
+      "description": "Session cookies lacking Secure/HttpOnly/SameSite increase risk of session hijacking and post-MFA token theft.",
+      "evidence": "Cookie=sessionid; missing=Secure,HttpOnly,SameSite",
+      "remediation": "Set Secure; HttpOnly; SameSite=Lax (or Strict) on all authentication session cookies.",
+      "nist_ref": "NIST SP 800-63B \u00a77.1",
+      "owasp_ref": "OWASP A07:2021 Identification & Authentication Failures",
+      "cwe_ref": "CWE-1004"
+    },
+    {
+      "check_id": "SES-002",
+      "title": "Short session token 'sessionid'",
+      "severity": "High",
+      "description": "Session token is under 16 characters, far below the 128-bit NIST minimum. Such tokens are predictable and trivially brute-forceable.",
+      "evidence": "Token length = 12 characters",
+      "remediation": "Generate session identifiers with a CSPRNG providing at least 128 bits of entropy (e.g., secrets.token_urlsafe(32)).",
+      "nist_ref": "NIST SP 800-63B \u00a77.1",
+      "owasp_ref": "OWASP A07:2021",
+      "cwe_ref": "CWE-330"
+    },
+    {
+      "check_id": "ATT-001",
+      "title": "No observable rate limiting on authentication endpoint",
+      "severity": "High",
+      "description": "The authentication endpoint did not throttle a burst of requests, making the system susceptible to MFA fatigue (prompt bombing) and OTP brute-force attacks.",
+      "evidence": "12 rapid requests to http://127.0.0.1:8080/login; statuses={200: 12}; elapsed=0.12s",
+      "remediation": "Implement per-account and per-IP rate limits on all MFA challenge endpoints (e.g., 3\u20135 attempts/min), enable number matching, and lock the account after repeated denials.",
+      "nist_ref": "NIST SP 800-63B \u00a75.2.2",
+      "owasp_ref": "OWASP A07:2021",
+      "cwe_ref": "CWE-307"
+    },
+    {
+      "check_id": "ATT-002",
+      "title": "Weak fallback MFA method offered",
+      "severity": "Medium",
+      "description": "The authentication flow advertises weak fallback factors (SMS, email OTP). These can be downgraded to by an attacker to bypass stronger factors such as FIDO2/WebAuthn.",
+      "evidence": "Fallback indicators found: SMS, email OTP",
+      "remediation": "Prefer phishing-resistant factors (FIDO2/WebAuthn). If SMS/voice must remain, restrict to recovery only and apply additional verification and monitoring.",
+      "nist_ref": "NIST SP 800-63B \u00a75.1.3 / \u00a75.2.10",
+      "owasp_ref": "OWASP A07:2021",
+      "cwe_ref": ""
+    },
+    {
+      "check_id": "ATT-003",
+      "title": "No phishing-resistant MFA factor detected",
+      "severity": "Medium",
+      "description": "The target does not advertise FIDO2/WebAuthn support. Users rely on OTP or push, which are vulnerable to AiTM phishing and real-time relay attacks.",
+      "evidence": "No WebAuthn/FIDO2/passkey indicators in login page",
+      "remediation": "Roll out FIDO2 security keys or platform passkeys and require them for privileged accounts (NIST AAL3).",
+      "nist_ref": "NIST SP 800-63B \u00a75.1.7",
+      "owasp_ref": "OWASP A07:2021",
+      "cwe_ref": ""
+    }
+  ],
+  "endpoints": [
+    {
+      "url": "http://127.0.0.1:8080",
+      "status": 200,
+      "auth_type": "form",
+      "mfa_indicators": [
+        "sms",
+        "email_otp"
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8080/login",
+      "status": 200,
+      "auth_type": "form",
+      "mfa_indicators": [
+        "sms",
+        "email_otp"
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8080/signin",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/auth",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/sso",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/oauth2/authorize",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/mfa",
+      "status": 200,
+      "auth_type": "form",
+      "mfa_indicators": [
+        "totp",
+        "push"
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8080/2fa",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/verify",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/challenge",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/authenticate",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    },
+    {
+      "url": "http://127.0.0.1:8080/.well-known/openid-configuration",
+      "status": 404,
+      "auth_type": "form",
+      "mfa_indicators": []
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MFA Security Assessment Tool</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px;
+         margin: 3rem auto; padding: 0 1rem; color: #1c1c1c; }
+  h1 { margin-bottom: .2rem; }
+  p.lede { color: #555; margin-top: .2rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem;
+          margin-top: 1.5rem; background: #fafafa; }
+  label { display: block; margin-top: .75rem; font-weight: 600; }
+  input[type=text], input[type=password] {
+    width: 100%; padding: .6rem; box-sizing: border-box;
+    border: 1px solid #bbb; border-radius: 4px; font-size: 1rem;
+  }
+  .checkbox-row { margin-top: .9rem; display: flex; gap: .5rem;
+                  align-items: flex-start; }
+  button {
+    margin-top: 1rem; padding: .7rem 1.4rem; font-size: 1rem;
+    background: #0b6; color: white; border: 0; border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover { background: #095; }
+  .error { color: #b00; margin-top: 1rem; font-weight: 600; }
+  .notice { background: #fff4d6; border-left: 4px solid #e0a800;
+            padding: .75rem 1rem; border-radius: 4px; margin-top: 1rem; }
+  footer { margin-top: 3rem; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+  <h1>MFA Security Assessment Tool</h1>
+  <p class="lede">Non-destructive auditor for Multi-Factor Authentication implementations.</p>
+
+  <div class="notice">
+    <strong>Authorized use only.</strong>
+    This tool performs read-only security auditing. You must have explicit written
+    permission from the owner of the target system before running any assessment.
+  </div>
+
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  <form method="post" action="/scan" class="card">
+    <label for="target">Target URL</label>
+    <input type="text" id="target" name="target"
+           placeholder="https://app.example.com" required>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="authorized" name="authorized" value="yes" required>
+      <label for="authorized" style="margin:0; font-weight:400;">
+        I confirm I have explicit authorization to assess this target.
+      </label>
+    </div>
+
+    {% if access_required %}
+    <label for="access_code">Access code</label>
+    <input type="password" id="access_code" name="access_code" required>
+    {% endif %}
+
+    <button type="submit">Run Assessment</button>
+  </form>
+
+  <footer>MFA Audit Tool v1.0 · Design Science Research project</footer>
+</body>
+</html>
